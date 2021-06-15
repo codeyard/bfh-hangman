@@ -5,15 +5,22 @@ export class Game {
         this.dropzone = document.querySelector('#dropzone');
         this.alphabet = document.querySelector('.input-fields__alphabet');
         this.solution = document.querySelector('.input-fields__solution');
-
-        this.secretWord = generateWord();
+        this.gameStatus = document.querySelector('.game-status');
 
         this.initDropListener();
-        this.createAlphabet();
-        this.initSolution()
-
         this.hang = new Hangman();
+        this.init();
+    }
+
+    init() {
+        this.secretWord = generateWord();
+        this.lettersLeft = this.secretWord.length;
+        this.createAlphabet();
+        this.initSolution();
+        this.hang.clearField();
         this.hang.resetStep();
+        this.dropzone.setAttribute('placeholder', 'Drag letters here');
+        this.gameStatus.style.display = 'none';
     }
 
     initDropListener() {
@@ -29,24 +36,26 @@ export class Game {
     }
 
     createAlphabet() {
+        this.alphabet.innerHTML = '';
         for (let i = 0; i < 26; i++) {
             let divContainer = document.createElement('div');
             let spanElement = document.createElement('span');
-            const letter = (i+10).toString(36).toUpperCase();
-            spanElement.innerHTML = letter;
-            spanElement.classList.add('letter');
+            const letter = (i + 10).toString(36).toUpperCase();
             divContainer.id = letter;
             divContainer.setAttribute('draggable', 'true');
             divContainer.addEventListener('dragstart', (event) => {
                 event.dataTransfer.setData('text/plain', event.target.id);
             })
             divContainer.classList.add('letter-container');
+            spanElement.innerHTML = letter;
+            spanElement.classList.add('letter');
             divContainer.appendChild(spanElement);
             this.alphabet.appendChild(divContainer);
         }
     }
 
     initSolution() {
+        this.solution.innerHTML = '';
         const letters = this.secretWord.split('');
         letters.forEach(() => {
             let divElement = document.createElement('div');
@@ -59,7 +68,7 @@ export class Game {
     }
 
     processLetter(letter) {
-        const positions = this.secretWord.split('').reduce(function(a, e, i) {
+        const positions = this.secretWord.split('').reduce(function (a, e, i) {
             if (e === letter)
                 a.push(i);
             return a;
@@ -72,28 +81,67 @@ export class Game {
         const elements = this.solution.querySelectorAll('span');
         positions.forEach(pos => {
             elements[pos].innerHTML = letter;
-        })
+            this.lettersLeft--;
+        });
+        if (this.lettersLeft < 1) {
+            this.gameIsOver(true);
+        }
     }
 
     hangMeMore() {
         this.hang.nextStep();
         if (this.hang.areYouDead()) {
-            this.gameIsOver();
+            this.gameIsOver(false);
         }
     }
 
-    gameIsOver() {
-        console.log('G A M E   O V E R !!!!')
+    gameIsOver(successful) {
+        const remainingLetters = this.alphabet.querySelectorAll('div');
+        remainingLetters.forEach(letter => {
+            letter.classList.add('disabled');
+            letter.setAttribute('draggable', 'false');
+        })
+        setTimeout(() => {
+            this.gameStatus.innerHTML = successful ? 'Well done 👍' : 'Game over 😥';
+            this.gameStatus.style.display = 'block';
+            this.restartGame();
+        }, 2000);
+    }
+
+    restartGame() {
+        setTimeout(() => {
+            this.init();
+        }, 3000)
     }
 }
 
-function generateWord(){
+function generateWord() {
 
     const words = [
-        'FRANKREICH',
-        'DEUTSCHLAND',
         'SCHWEIZ',
-        'SCHWEDEN'
+        'BELGIEN',
+        'DAENEMARK',
+        'DEUTSCHLAND',
+        'ENGLAND',
+        'FINNLAND',
+        'FRANKREICH',
+        'ITALIEN',
+        'KROATIEN',
+        'NIEDERLANDE',
+        'NORDMAZEDONIEN',
+        'OESTERREICH',
+        'POLEN',
+        'PORTUGAL',
+        'RUSSLAND',
+        'SCHOTTLAND',
+        'SCHWEDEN',
+        'SLOWAKEI',
+        'SPANIEN',
+        'TSCHECHIEN',
+        'TUERKEI',
+        'UKRAINE',
+        'UNGARN',
+        'WALES'
     ];
 
     const index = Math.floor((Math.random() * words.length));

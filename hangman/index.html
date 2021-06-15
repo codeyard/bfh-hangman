@@ -8,20 +8,23 @@
 </head>
 <body>
     <main>
+        <div class="game-status">Hangman 🎮</div>
 
-        <div class="input-fields">
-            <div class="input-fields__dropzone">
-                <input type="text" id="dropzone" name="dropzone" placeholder="Drag letters here">
+        <section>
+            <div class="input-fields">
+                <div class="input-fields__dropzone">
+                    <input type="text" id="dropzone" name="dropzone" placeholder="Drag letters here">
+                </div>
+
+                <div class="input-fields__solution"></div>
+
+                <div class="input-fields__alphabet"></div>
             </div>
 
-            <div class="input-fields__solution"></div>
-
-            <div class="input-fields__alphabet"></div>
-        </div>
-
-        <div class="hangman">
-            <canvas id="hangman_drawing" width="300" height="300"></canvas>
-        </div>
+            <div class="hangman">
+                <canvas id="hangman_drawing" width="300" height="300"></canvas>
+            </div>
+        </section>
     </main>
 </body>
 </html>

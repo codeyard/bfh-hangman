@@ -26,11 +26,10 @@ export class Hangman{
     nextStep(){
         this.hangStep++;
         this._printStep(this.hangStep);
-        console.log('next step')
     }
 
     areYouDead(){
-        return this.hangStep >= this.steps.length;
+        return this.hangStep >= this.steps.length - 1;
     }
 
     resetStep(){
