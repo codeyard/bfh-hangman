@@ -23,6 +23,7 @@
 
         .drop-zone li {
             font-size: 20px;
+            cursor: move;
         }
 
         .riders {
@@ -52,24 +53,31 @@
         }
 
         function dragStart(ev) {
-            ev.dataTransfer.setData('text/plain', ev.target.innerText);
+            ev.dataTransfer.setData('object', `{\"data\": \"${ev.target.innerText}\", \"sourceList\": \"${ev.target.parentElement.id ?? undefined}\"}`);
             ev.dataTransfer.effectAllowed = 'move';
             source = ev.target;
         }
 
         function drop(ev) {
             ev.preventDefault();
-            const data = ev.dataTransfer.getData('text/plain');
+            const dataString = ev.dataTransfer.getData('object');
+            const data = JSON.parse(dataString);
             let listElement = document.createElement('li');
-            listElement.innerText = data;
+            listElement.innerText = data.data;
+            listElement.draggable = true;
+            listElement.addEventListener("dragstart", dragStart);
             source.parentNode.removeChild(source);
             ev.target.appendChild(listElement);
             console.log(ev.target.id);
             let targetList = ev.target.id;
+            let sourceList = data.sourceList;
+            if(targets[sourceList]?.includes(data.data)) {
+                targets[sourceList].splice(sourceList.indexOf(data.data),1);
+            }
             if(!targets.hasOwnProperty(targetList)) {
                 targets[targetList] = []
             }
-            targets[targetList].push(data);
+            targets[targetList].push(data.data);
             console.log(targetList, targets[targetList]);
         }
     </script>
