@@ -27,9 +27,9 @@ export class Game {
         this.dropzone.addEventListener('drop', (event) => {
             event.preventDefault();
             const letter = event.dataTransfer.getData('text/plain');
-            const spanElement = document.querySelector('#' + letter);
-            spanElement.classList.add('disabled');
-            spanElement.setAttribute('draggable', 'false');
+            const divContainer = document.querySelector('#' + letter);
+            divContainer.classList.add('disabled');
+            divContainer.setAttribute('draggable', 'false');
             this.processLetter(letter);
             this.dropzone.setAttribute('placeholder', '');
         })
@@ -105,13 +105,13 @@ export class Game {
             this.gameStatus.innerHTML = successful ? 'Well done 👍' : 'Game over 😥';
             this.gameStatus.style.display = 'block';
             this.restartGame();
-        }, 2000);
+        }, 1000);
     }
 
     restartGame() {
         setTimeout(() => {
             this.init();
-        }, 3000)
+        }, 4000)
     }
 }
 
