@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Drag & Drop</title>
+    <style>
+        .drop-zone {
+            width: 420px;
+            height: 157px;
+            padding: 10px;
+            border: 1px solid #aaa;
+        }
+    </style>
+
+    <script>
+        function allowDrop(ev) {
+            ev.preventDefault();
+        }
+
+        function drag(ev) {
+            ev.dataTransfer.setData('text/plain', ev.target.id);
+        }
+
+        function drop(ev) {
+            ev.preventDefault();
+            const data = ev.dataTransfer.getData('text/plain');
+            ev.target.appendChild(document.getElementById(data));
+        }
+    </script>
+</head>
+<body>
+    <div id="drop" class="drop-zone" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+    <img id="drag" src="https://riversurfjam.ch/templates/yootheme/cache/Logo_rsft_thun_black-14062789.jpeg"
+         draggable="true" ondragstart="drag(event)" width="400" height="137" />
+</body>
+</html>

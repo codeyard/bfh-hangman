@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Canvas</title>
+</head>
+<body>
+<canvas id="canvas"></canvas>
+
+<script>
+    const canvas = document.getElementById('canvas');
+    let c = canvas.getContext('2d');
+
+    c.fillStyle = 'red';
+    c.beginPath();
+    c.moveTo(50,20);
+    c.lineTo(200,50);
+    c.lineTo(150,80);
+    c.closePath();
+    c.fill();
+    c.strokeStyle = 'black';
+    c.lineWidth = 5;
+    c.stroke();
+</script>
+</body>
+</html>

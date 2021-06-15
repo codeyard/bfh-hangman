@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Drag & Drop - List</title>
+    <style>
+        .container {
+            display: grid;
+            grid-template-columns: 30% 35% 35%;
+        }
+
+        .container > div {
+            padding: 0 20px;
+        }
+
+        .drop-zone {
+            padding: 10px;
+            border: 1px solid #aaa;
+            list-style: none;
+            width: calc(100% - 20px);
+            min-height: 280px;
+        }
+
+        .drop-zone li {
+            font-size: 20px;
+        }
+
+        .riders {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .riders li {
+            cursor: move;
+            border: 1px solid #ccc;
+            text-align: center;
+            font-size: 20px;
+            padding: 3px;
+            margin: 5px 0;
+        }
+    </style>
+
+    <script>
+        let source;
+
+        function dragOver(ev) {
+            ev.preventDefault();
+            ev.dataTransfer.dropEffect = 'move';
+        }
+
+        function dragStart(ev) {
+            ev.dataTransfer.setData('text/plain', ev.target.innerText);
+            ev.dataTransfer.effectAllowed = 'move';
+            source = ev.target;
+        }
+
+        function drop(ev) {
+            ev.preventDefault();
+            const data = ev.dataTransfer.getData('text/plain');
+            let listElement = document.createElement('li');
+            listElement.innerText = data;
+            source.parentNode.removeChild(source);
+            ev.target.appendChild(listElement);
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div>
+            <h2>Riders</h2>
+            <ul class="riders">
+                <li draggable="true" ondragstart="dragStart(event)">Jerry Wilkinson</li>
+                <li draggable="true" ondragstart="dragStart(event)">Haley Hutchinson</li>
+                <li draggable="true" ondragstart="dragStart(event)">Gina Slater</li>
+                <li draggable="true" ondragstart="dragStart(event)">Damian Sims</li>
+                <li draggable="true" ondragstart="dragStart(event)">Fawn Lindsey</li>
+                <li draggable="true" ondragstart="dragStart(event)">Scott Robbins</li>
+                <li draggable="true" ondragstart="dragStart(event)">Grayson Kim</li>
+                <li draggable="true" ondragstart="dragStart(event)">Winifred Neel</li>
+            </ul>
+        </div>
+
+        <div class="heat">
+            <h2>Heat 1</h2>
+            <ul class="drop-zone" ondrop="drop(event)" ondragover="dragOver(event)"></ul>
+        </div>
+
+        <div class="heat">
+            <h2>Heat 2</h2>
+            <ul class="drop-zone" ondrop="drop(event)" ondragover="dragOver(event)"></ul>
+        </div>
+    </div>
+</body>
+</html>
