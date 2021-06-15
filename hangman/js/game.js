@@ -22,7 +22,7 @@ export class Game {
             const letter = event.dataTransfer.getData('text/plain');
             const spanElement = document.querySelector('#' + letter);
             spanElement.classList.add('disabled');
-            spanElement.setAttribute('draggable', false);
+            spanElement.setAttribute('draggable', 'false');
             this.processLetter(letter);
             this.dropzone.setAttribute('placeholder', '');
         })
@@ -36,7 +36,7 @@ export class Game {
             spanElement.innerHTML = letter;
             spanElement.classList.add('letter');
             divContainer.id = letter;
-            divContainer.setAttribute('draggable', true);
+            divContainer.setAttribute('draggable', 'true');
             divContainer.addEventListener('dragstart', (event) => {
                 event.dataTransfer.setData('text/plain', event.target.id);
             })
@@ -48,7 +48,7 @@ export class Game {
 
     initSolution() {
         const letters = this.secretWord.split('');
-        letters.forEach(letter => {
+        letters.forEach(() => {
             let divElement = document.createElement('div');
             let spanElement = document.createElement('span');
             spanElement.innerHTML = '&nbsp;';
