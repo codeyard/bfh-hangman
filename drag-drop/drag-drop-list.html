@@ -44,6 +44,8 @@
     <script>
         let source;
 
+        let targets = {};
+
         function dragOver(ev) {
             ev.preventDefault();
             ev.dataTransfer.dropEffect = 'move';
@@ -62,6 +64,13 @@
             listElement.innerText = data;
             source.parentNode.removeChild(source);
             ev.target.appendChild(listElement);
+            console.log(ev.target.id);
+            let targetList = ev.target.id;
+            if(!targets.hasOwnProperty(targetList)) {
+                targets[targetList] = []
+            }
+            targets[targetList].push(data);
+            console.log(targetList, targets[targetList]);
         }
     </script>
 </head>
@@ -83,12 +92,12 @@
 
         <div class="heat">
             <h2>Heat 1</h2>
-            <ul class="drop-zone" ondrop="drop(event)" ondragover="dragOver(event)"></ul>
+            <ul id="heat1" class="drop-zone" ondrop="drop(event)" ondragover="dragOver(event)"></ul>
         </div>
 
         <div class="heat">
             <h2>Heat 2</h2>
-            <ul class="drop-zone" ondrop="drop(event)" ondragover="dragOver(event)"></ul>
+            <ul id="heat2" class="drop-zone" ondrop="drop(event)" ondragover="dragOver(event)"></ul>
         </div>
     </div>
 </body>
