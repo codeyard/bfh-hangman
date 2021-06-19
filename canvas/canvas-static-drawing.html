@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Draw</title>
+</head>
+<style>
+    body {
+        font-family: sans-serif;
+    }
+
+    .col {
+        float: left;
+        margin: 5px;
+    }
+
+    .row:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+
+    canvas {
+        border: 1px solid black;
+    }
+
+    .secret{
+        display: none;
+    }
+</style>
+<body>
+<h1>Drawing examples</h1>
+<p>Drawing static canvas</p>
+<div class="row">
+    <div class="col">
+        <h2>Rectangles</h2>
+        <canvas id="canvasRectangles"></canvas>
+    </div>
+    <div class="col">
+        <h2>Text</h2>
+        <canvas id="canvasText"></canvas>
+    </div>
+    <div class="col">
+        <h2>Paths</h2>
+        <canvas id="canvasPaths"></canvas>
+    </div>
+    <div class="col">
+        <h2>Images</h2>
+        <canvas id="canvasImages"></canvas>
+        <div class="secret">
+            <img id="demoImage1" src="https://picsum.photos/70/80" width="70" height="80">
+            <img id="demoImage2" src="https://picsum.photos/100/100" width="100" height="100">
+        </div>
+    </div>
+</div>
+<script>
+
+
+    const ctxRectangles = document.getElementById('canvasRectangles').getContext('2d');
+    ctxRectangles.fillRect(20, 20, 100, 50);
+    ctxRectangles.strokeRect(150, 75, 100, 50);
+
+    function calcTextLength(context, text){
+        const textMetricsOfWord = context.measureText(text);
+        return Math.floor(Math.abs(textMetricsOfWord.actualBoundingBoxLeft) + Math.abs(textMetricsOfWord.actualBoundingBoxRight)).toString();
+    }
+
+    const ctxText = document.getElementById('canvasText').getContext('2d');
+    ctxText.fillText('Hello', 20, 20);
+    ctxText.strokeText('World', 150, 75);
+    ctxText.fillText(calcTextLength(ctxText, 'Hello'), 20, 50);
+
+    const ctxPaths = document.getElementById('canvasPaths').getContext('2d');
+    ctxPaths.beginPath();
+    ctxPaths.moveTo(20, 20);
+    ctxPaths.lineTo(120, 70);
+    ctxPaths.lineTo(150, 125);
+    ctxPaths.moveTo(250, 50);
+    ctxPaths.arc(150, 50, 30, 0, Math.PI / 2);
+    ctxPaths.stroke();
+
+    const ctxImage = document.getElementById('canvasImages').getContext('2d');
+    const loadedImage1 = document.getElementById('demoImage1')
+    loadedImage1.addEventListener('load', () =>{
+       ctxImage.drawImage(loadedImage1, 20, 20);
+    });
+    const loadedImage2 = document.getElementById('demoImage2')
+    loadedImage2.addEventListener('load', () =>{
+        ctxImage.drawImage(loadedImage2, 150, 40);
+    });
+
+</script>
+</body>
+</html>
