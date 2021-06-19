@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Hangman</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <script type="module" src="js/app.js"></script>
+</head>
+<body>
+    <main>
+        <div class="game-status">Hangman 🎮</div>
+
+        <section>
+            <div class="input-fields">
+                <div class="input-fields__dropzone">
+                    <input type="text" id="dropzone" name="dropzone" placeholder="Drag letters here">
+                </div>
+
+                <div class="input-fields__solution"></div>
+
+                <div class="input-fields__alphabet"></div>
+            </div>
+
+            <div class="hangman">
+                <canvas id="hangman_drawing" width="300" height="300"></canvas>
+            </div>
+        </section>
+    </main>
+</body>
+</html>
