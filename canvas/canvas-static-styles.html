@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Style</title>
+</head>
+<style>
+  body {
+    font-family: sans-serif;
+  }
+
+  .col {
+    float: left;
+    margin: 5px;
+  }
+
+  .row:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+
+  canvas {
+    border: 1px solid black;
+  }
+</style>
+<body>
+<h1>Style examples</h1>
+<p>Changing text style</p>
+<div class="row">
+  <div class="col">
+    <h2>Default</h2>
+    <canvas id="canvasDefault"></canvas>
+  </div>
+  <div class="col">
+    <h2>Styled</h2>
+    <canvas id="canvasStyled"></canvas>
+  </div>
+</div>
+<script>
+
+  function calcTextLength(context, text){
+    const textMetricsOfWord = context.measureText(text);
+    return Math.floor(Math.abs(textMetricsOfWord.actualBoundingBoxLeft) + Math.abs(textMetricsOfWord.actualBoundingBoxRight)).toString();
+  }
+
+  function drawText(context){
+    context.fillText('Hello', 20, 20);
+    context.strokeText('World', 150, 75);
+    context.fillText(calcTextLength(context, 'Hello'), 20, 50);
+  }
+
+  const ctxTextDefault = document.getElementById('canvasDefault').getContext('2d');
+  drawText(ctxTextDefault);
+
+  const ctxTextStyled = document.getElementById('canvasStyled').getContext('2d');
+  ctxTextStyled.fillStyle = 'blue';
+  ctxTextStyled.textBaseline = 'top';
+  ctxTextStyled.font = 'bold 30px fantasy';
+  drawText(ctxTextStyled);
+
+</script>
+</body>
+</html>

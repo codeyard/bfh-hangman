@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Draw</title>
+</head>
+<style>
+  body{
+    font-family: sans-serif;
+  }
+</style>
+<body>
+  <h1>Drawing example with CANVAS</h1>
+  <p>A demo by using the canvas element</p>
+  <canvas id="drawArea"></canvas>
+  <script>
+    const canvas = document.getElementById('drawArea').getContext('2d');
+
+    function linedraw(x1, y1, x2, y2, col) {
+      canvas.beginPath();
+      canvas.moveTo(x1, y1);
+      canvas.lineTo(x2, y2);
+      canvas.strokeStyle = col;
+      canvas.stroke();
+    }
+
+    linedraw(10, 0, 50, 80, 'red');
+    linedraw(50, 80, 300, 30, 'blue');
+  </script>
+</body>
+</html>
