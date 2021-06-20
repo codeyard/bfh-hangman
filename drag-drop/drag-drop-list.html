@@ -21,6 +21,10 @@
             min-height: 280px;
         }
 
+        .drop-zone--over {
+            background-color: #e0f3e2;
+        }
+
         .drop-zone li {
             font-size: 20px;
         }
@@ -40,65 +44,75 @@
             margin: 5px 0;
         }
     </style>
-
-    <script>
-        let source;
-
-        let targets = {};
-
-        function dragStart(ev) {
-            ev.dataTransfer.setData('text/plain', ev.target.innerText);
-            ev.dataTransfer.effectAllowed = 'move';
-            source = ev.target;
-        }
-
-        function dragOver(ev) {
-            ev.preventDefault();
-            ev.dataTransfer.dropEffect = 'move';
-        }
-
-        function drop(ev) {
-            ev.preventDefault();
-            const data = ev.dataTransfer.getData('text/plain');
-            let listElement = document.createElement('li');
-            listElement.innerText = data;
-            source.parentNode.removeChild(source);
-            ev.target.appendChild(listElement);
-            console.log(ev.target.id);
-            let targetList = ev.target.id;
-            if(!targets.hasOwnProperty(targetList)) {
-                targets[targetList] = []
-            }
-            targets[targetList].push(data);
-            console.log(targetList, targets[targetList]);
-        }
-    </script>
 </head>
 <body>
     <div class="container">
         <div>
             <h2>Riders</h2>
             <ul class="riders">
-                <li draggable="true" ondragstart="dragStart(event)">Jerry Wilkinson</li>
-                <li draggable="true" ondragstart="dragStart(event)">Haley Hutchinson</li>
-                <li draggable="true" ondragstart="dragStart(event)">Gina Slater</li>
-                <li draggable="true" ondragstart="dragStart(event)">Damian Sims</li>
-                <li draggable="true" ondragstart="dragStart(event)">Fawn Lindsey</li>
-                <li draggable="true" ondragstart="dragStart(event)">Scott Robbins</li>
-                <li draggable="true" ondragstart="dragStart(event)">Grayson Kim</li>
-                <li draggable="true" ondragstart="dragStart(event)">Winifred Neel</li>
+                <li draggable="true">Jerry Wilkinson</li>
+                <li draggable="true">Haley Hutchinson</li>
+                <li draggable="true">Gina Slater</li>
+                <li draggable="true">Damian Sims</li>
+                <li draggable="true">Fawn Lindsey</li>
+                <li draggable="true">Scott Robbins</li>
+                <li draggable="true">Grayson Kim</li>
+                <li draggable="true">Winifred Neel</li>
             </ul>
         </div>
 
         <div class="heat">
             <h2>Heat 1</h2>
-            <ul id="heat1" class="drop-zone" ondrop="drop(event)" ondragover="dragOver(event)"></ul>
+            <ul id="heat1" class="drop-zone"></ul>
         </div>
 
         <div class="heat">
             <h2>Heat 2</h2>
-            <ul id="heat2" class="drop-zone" ondrop="drop(event)" ondragover="dragOver(event)"></ul>
+            <ul id="heat2" class="drop-zone"></ul>
         </div>
     </div>
+
+    <script>
+        let source;
+
+        const targets = {};
+
+        for (const draggable of document.querySelectorAll('[draggable=true]')) {
+            draggable.addEventListener('dragstart', ev => {
+                ev.dataTransfer.setData('text/plain', ev.target.innerText);
+                source = ev.target;
+            })
+        }
+
+        for (const dropZone of document.querySelectorAll('.drop-zone')) {
+            dropZone.addEventListener('dragover', ev => {
+                ev.preventDefault();
+                dropZone.classList.add('drop-zone--over');
+            });
+
+            dropZone.addEventListener('dragleave', () => {
+                dropZone.classList.remove('drop-zone--over');
+            });
+
+            dropZone.addEventListener('drop', ev => {
+                ev.preventDefault();
+                const data = ev.dataTransfer.getData('text/plain');
+                let listElement = document.createElement('li');
+                listElement.innerText = data;
+                source.parentNode.removeChild(source);
+                ev.target.appendChild(listElement);
+                console.log(ev.target.id);
+
+                const targetList = ev.target.id;
+                if(!targets.hasOwnProperty(targetList)) {
+                    targets[targetList] = []
+                }
+                targets[targetList].push(data);
+                console.log(targetList, targets[targetList]);
+
+                dropZone.classList.remove('drop-zone--over');
+            })
+        }
+    </script>
 </body>
 </html>
