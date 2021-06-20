@@ -19,10 +19,14 @@ export class Hangman{
         this.drawConfig = {
             lineWidth : 4,
             lineCap : 'round',
-            lineJoin : 'round'
+            lineJoin : 'round',
+            drawDeath : true,
+            shadowOffset : 10,
+            shadowBlur : 15,
+            shadowColor : 'red'
         };
         this.animationConfig = {
-            framesForOneStep : 50,
+            framesForOneStep : 30,
         }
         this.animationStatus = {
             animationRunning : false,
@@ -69,7 +73,7 @@ export class Hangman{
 
             // increase animation step
             this.animationStatus.animationStep++;
-            if(this.animationStatus.animationStep >= this.hangStep){
+            if(this.animationStatus.animationStep > this.hangStep){
 
                 // stop animation
                 this.animationStatus.animationRunning = false;
@@ -189,6 +193,14 @@ export class Hangman{
         if(frame !== undefined){
             // animation: circle
             endAngle = endAngle * this._getAnimationFrameWeight();
+        }
+
+        // draw the following figures with a shadow, if hangman is dead
+        if(this.areYouDead() && this.drawConfig.drawDeath){
+            this.context.shadowOffsetX = this.drawConfig.shadowOffset;
+            this.context.shadowOffsetY = this.drawConfig.shadowOffset;
+            this.context.shadowBlur = this.drawConfig.shadowBlur;
+            this.context.shadowColor = this.drawConfig.shadowColor;
         }
 
         this.context.beginPath();
