@@ -13,12 +13,12 @@
     </style>
 
     <script>
-        function allowDrop(ev) {
-            ev.preventDefault();
+        function dragStart(ev) {
+            ev.dataTransfer.setData('text/plain', ev.target.id);
         }
 
-        function drag(ev) {
-            ev.dataTransfer.setData('text/plain', ev.target.id);
+        function dragOver(ev) {
+            ev.preventDefault();
         }
 
         function drop(ev) {
@@ -29,8 +29,8 @@
     </script>
 </head>
 <body>
-    <div id="drop" class="drop-zone" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+    <div id="drop" class="drop-zone" ondrop="drop(event)" ondragover="dragOver(event)"></div>
     <img id="drag" src="https://riversurfjam.ch/templates/yootheme/cache/Logo_rsft_thun_black-14062789.jpeg"
-         draggable="true" ondragstart="drag(event)" width="400" height="137" />
+         draggable="true" ondragstart="dragStart(event)" width="400" height="137" />
 </body>
 </html>

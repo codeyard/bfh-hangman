@@ -22,17 +22,17 @@
     <script>
         let source;
 
+        function dragStart(ev) {
+            ev.dataTransfer.effectAllowed = "move";
+            ev.dataTransfer.setData("text/plain", null); // Thanks to bqlou for their comment.
+            source = ev.target;
+        }
+
         function dragOver(ev) {
             if (isBefore(source, ev.target))
                 ev.target.parentNode.insertBefore(source, ev.target);
             else
                 ev.target.parentNode.insertBefore(source, ev.target.nextSibling);
-        }
-
-        function dragStart(ev) {
-            ev.dataTransfer.effectAllowed = "move";
-            ev.dataTransfer.setData("text/plain", null); // Thanks to bqlou for their comment.
-            source = ev.target;
         }
 
         function isBefore(source, target) {

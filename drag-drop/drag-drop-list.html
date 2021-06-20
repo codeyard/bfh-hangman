@@ -46,15 +46,15 @@
 
         let targets = {};
 
-        function dragOver(ev) {
-            ev.preventDefault();
-            ev.dataTransfer.dropEffect = 'move';
-        }
-
         function dragStart(ev) {
             ev.dataTransfer.setData('text/plain', ev.target.innerText);
             ev.dataTransfer.effectAllowed = 'move';
             source = ev.target;
+        }
+
+        function dragOver(ev) {
+            ev.preventDefault();
+            ev.dataTransfer.dropEffect = 'move';
         }
 
         function drop(ev) {
