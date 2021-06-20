@@ -83,6 +83,10 @@ section > div {
     font-size: 3rem;
 }
 
+.solution-letter {
+    animation: letterAnimation 2s linear 0s;
+}
+
 .hangman {
     display: flex;
     justify-content: center;
@@ -113,4 +117,24 @@ input::placeholder {
 
 .show {
     display: block;
+}
+
+
+@keyframes letterAnimation {
+    0% {
+        font-size: 4rem;
+        transform: skew(0deg, 0deg);
+    }
+
+    50% {
+        font-size: 1rem;
+        transform: skew(90deg, 90deg);
+    }
+
+    100% {
+        font-size: 3rem;
+        transform: skew(180deg, 180deg);
+
+    }
+
 }

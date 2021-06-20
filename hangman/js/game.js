@@ -80,6 +80,7 @@ export class Game {
         const elements = this.solution.querySelectorAll('span');
         positions.forEach(pos => {
             elements[pos].innerHTML = letter;
+            elements[pos].classList.add("solution-letter")
             this.lettersLeft--;
         });
         if (this.lettersLeft < 1) {
