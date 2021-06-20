@@ -17,7 +17,6 @@ export class Game {
         this.lettersLeft = this.secretWord.length;
         this.createAlphabet();
         this.initSolution();
-        this.hang.clearField();
         this.hang.resetStep();
         this.dropzone.setAttribute('placeholder', 'Drag letters here');
         this.gameStatus.style.display = 'none';
