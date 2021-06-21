@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Canvas Examples</title>
+    <style>
+        body {
+            font-family: sans-serif;
+        }
+        .col {
+            float: left;
+            margin: 5px;
+        }
+        .row:after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+        canvas {
+            border: 1px solid black;
+        }
+        .secret{
+            display: none;
+        }
+    </style>
+    <script>
+        function generateCode() {
+            const scripts = document.querySelectorAll('[id^="script-"]');
+            for (const s of scripts) {
+                const correspondingPart = document.querySelector(`#${s.id}`).closest('div');
+                const codeDiv = document.createElement('div');
+                codeDiv.classList.add('col');
+                codeDiv.innerHTML = `<pre><code>${s.innerText}</code></pre>`;
+                correspondingPart.after(codeDiv);
+            }
+        }
+    </script>
+</head>
+<body>
+<h1>Canvas drawing</h1>
+<div class="row">
+    <h2>Rectangles</h2>
+    <div class="col">
+        <canvas id="canvasRectangles"></canvas>
+        <script id="script-Rectangles">
+            const ctxRect = document.getElementById('canvasRectangles').getContext('2d');
+            ctxRect.fillStyle = 'green';
+            ctxRect.fillRect(10, 10, 150, 100);
+        </script>
+    </div>
+</div>
+<div class="row">
+    <h2>Text</h2>
+    <div class="col">
+        <canvas id="canvasText"></canvas>
+        <script id="script-text">
+            function calcTextLength(context, text) {
+                const textMetricsOfWord = context.measureText(text);
+                return Math.floor(Math.abs(textMetricsOfWord.actualBoundingBoxLeft) +
+                    Math.abs(textMetricsOfWord.actualBoundingBoxRight)).toString();
+            }
+
+            const ctxText = document.getElementById('canvasText').getContext('2d');
+            ctxText.fillText('Hello', 20, 20);
+            ctxText.strokeText('World', 150, 75);
+            ctxText.fillText(calcTextLength(ctxText, 'Hello'), 20, 50);
+        </script>
+    </div>
+</div>
+<div class="row">
+    <h2>Paths</h2>
+    <div class="col">
+        <canvas id="canvasPaths"></canvas>
+        <script id="script-paths">
+            const ctxPaths = document.getElementById('canvasPaths').getContext('2d');
+            ctxPaths.beginPath();
+            ctxPaths.moveTo(20, 20);
+            ctxPaths.lineTo(120, 70);
+            ctxPaths.lineTo(150, 125);
+            ctxPaths.moveTo(250, 50);
+            ctxPaths.arc(150, 50, 30, 0, Math.PI / 2);
+            ctxPaths.stroke();
+        </script>
+    </div>
+</div>
+<div class="row">
+    <h2>Images</h2>
+    <div class="col">
+        <canvas id="canvasImages"></canvas>
+        <div class="secret">
+            <img id="demoImage1" src="https://picsum.photos/70/80" width="70" height="80">
+            <img id="demoImage2" src="https://picsum.photos/100/100" width="100" height="100">
+        </div>
+        <script id="script-images">
+            const ctxImage = document.getElementById('canvasImages').getContext('2d');
+            const loadedImage1 = document.getElementById('demoImage1')
+            loadedImage1.addEventListener('load', () => {
+                ctxImage.drawImage(loadedImage1, 20, 20);
+            });
+            const loadedImage2 = document.getElementById('demoImage2')
+            loadedImage2.addEventListener('load', () => {
+                ctxImage.drawImage(loadedImage2, 150, 40);
+            });
+        </script>
+    </div>
+</div>
+<h1>Canvas styling</h1>
+<div class="row">
+    <h2>Styled text</h2>
+    <div class="col">
+        <canvas id="canvasStyledText"></canvas>
+        <script id="script-textstyle">
+            function calcTextLength(context, text) {
+                const textMetricsOfWord = context.measureText(text);
+                return Math.floor(Math.abs(textMetricsOfWord.actualBoundingBoxLeft) +
+                    Math.abs(textMetricsOfWord.actualBoundingBoxRight)).toString();
+            }
+
+            function drawText(context) {
+                context.fillText('Hello', 20, 20);
+                context.strokeText('World', 150, 75);
+                context.fillText(calcTextLength(context, 'Hello'), 20, 50);
+            }
+
+            const ctxTextStyled = document.getElementById('canvasStyledText').getContext('2d');
+            ctxTextStyled.fillStyle = 'blue';
+            ctxTextStyled.textBaseline = 'top';
+            ctxTextStyled.font = 'bold 30px fantasy';
+            drawText(ctxTextStyled);
+        </script>
+    </div>
+</div>
+<div class="row">
+    <h2>Styled paths</h2>
+    <div class="col">
+        <canvas id="canvasStyledPath"></canvas>
+        <script id="script-pathstyle">
+            const ctxPathStyled = document.getElementById('canvasStyledPath').getContext('2d');
+
+            ctxPathStyled.shadowOffsetX = 5;
+            ctxPathStyled.shadowOffsetY = 5;
+            ctxPathStyled.shadowBlur = 10;
+            ctxPathStyled.shadowColor = 'red';
+
+            ctxPathStyled.beginPath();
+            ctxPathStyled.arc(50, 50, 30, 0, Math.PI * 2, true);
+            ctxPathStyled.arc(50, 50, 15, 0, Math.PI * 2, true);
+            ctxPathStyled.fill('evenodd');
+
+            ctxPathStyled.beginPath();
+            ctxPathStyled.moveTo(200, 50);
+            ctxPathStyled.lineTo(250, 100);
+            ctxPathStyled.lineTo(150, 100);
+            ctxPathStyled.closePath();
+            ctxPathStyled.fill();
+        </script>
+    </div>
+</div>
+<h1>Canvas animation example</h1>
+<div class="row">
+    <div class="col">
+        <img class="secret" id="demoImage" src="./img/demoImage.jpg" width="300" height="300">
+        <canvas id="canvas" width="300" height="300"></canvas>
+        <script id="script-animation">
+            const ctxAnimation = document.getElementById('canvas').getContext('2d');
+            const loadedImage = document.getElementById('demoImage');
+            const animationConfig = {
+                errorSize: 5,
+                redrawAfterFrameCounterHits: 3,
+                effectStartPosition: 150,
+                animationCounter: 0
+            }
+
+            function getNewErrorPosition(effectStartPosition) {
+                let pos = Math.floor(effectStartPosition + Math.random() *
+                    (ctxAnimation.canvas.width - effectStartPosition));
+                if (pos >= (ctxAnimation.canvas.width - animationConfig.errorSize)) {
+                    pos -= animationConfig.errorSize;
+                } else {
+                    if (pos < animationConfig.errorSize) {
+                        pos = animationConfig.errorSize;
+                    }
+                }
+                return pos;
+            }
+
+            function isPositionInRangeOfError(position, errorPosition) {
+                return (position >= errorPosition) && (position <= (errorPosition + animationConfig.errorSize));
+            }
+
+            function drawImageWithEffect(image, position) {
+                ctxAnimation.drawImage(image, 0, 0);
+                const imageData = ctxAnimation.getImageData(0, 0, ctxAnimation.canvas.width, ctxAnimation.canvas.height);
+                const data = imageData.data;
+                const skipAt = (position || 0) / 4;
+                const newRowStartsAt = ctxAnimation.canvas.width * 4;
+                let errorPixelPosition = getNewErrorPosition(skipAt);
+                let pixelColumn = 0;
+                let pixelRow = 0;
+
+                for (let i = 0; i < data.length; i += 4) {
+                    const pixelPositionX = (i >= newRowStartsAt) ? (i % newRowStartsAt) / 4 : i / 4;
+                    const newRowStarted = pixelPositionX === 0;
+                    if (pixelPositionX >= skipAt) {
+                        const drawErrorPixel = isPositionInRangeOfError(pixelPositionX, errorPixelPosition);
+                        if (drawErrorPixel && pixelColumn < animationConfig.errorSize) {
+                            data[i] = 0;
+                            data[i + 1] = 255;
+                            data[i + 2] = 0;
+                            pixelColumn++;
+                        } else {
+                            const avg = (data[i] + data[i + 1] + data[i + 2]) / 3;
+                            data[i] = avg; // red
+                            data[i + 1] = avg; // green
+                            data[i + 2] = avg; // blue
+                            // alpha (unused)
+                        }
+                    }
+                    if (newRowStarted) {
+                        pixelRow++;
+                        pixelColumn = 0;
+                        if (pixelRow >= animationConfig.errorSize) {
+                            pixelRow = 0;
+                            errorPixelPosition = getNewErrorPosition(skipAt);
+                        }
+                    }
+                }
+                ctxAnimation.putImageData(imageData, 0, 0);
+            }
+
+            function animate() {
+                animationConfig.animationCounter++;
+                if (animationConfig.animationCounter >= animationConfig.redrawAfterFrameCounterHits) {
+                    animationConfig.animationCounter = 0;
+                    drawImageWithEffect(loadedImage, animationConfig.effectStartPosition * 4);
+                }
+                requestAnimationFrame(animate);
+            }
+
+            loadedImage.addEventListener('load', () => {
+                drawImageWithEffect(loadedImage, ctxAnimation.canvas.width * 4 / 2);
+                ctxAnimation.canvas.addEventListener('mousemove', event => {
+                    animationConfig.effectStartPosition = event.clientX - ctxAnimation.canvas.getBoundingClientRect().left;
+                });
+                requestAnimationFrame(animate);
+            });
+        </script>
+    </div>
+</div>
+<script>
+    generateCode();
+</script>
+</body>
+</html>
