@@ -31,6 +31,9 @@
 
         function dragStart(ev) {
             ev.dataTransfer.setData('text/plain', ev.target.id);
+            let img = new Image();
+            img.src = 'img/euro2020_dark.png';
+            ev.dataTransfer.setDragImage(img, 150, 40);
         }
 
         function dragOver(ev) {
