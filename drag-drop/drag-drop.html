@@ -5,16 +5,29 @@
     <title>Drag & Drop</title>
     <style>
         .drop-zone {
-            width: 500px;
-            height: 155px;
+            width: 660px;
+            height: 165px;
             padding: 10px;
             border: 1px solid #aaa;
             margin-bottom: 20px;
         }
+
+        img {
+            margin: 5px;
+        }
+
+        img[draggable=true] {
+            cursor: move;
+        }
+
+        .disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
     </style>
 
     <script>
-        const qualified = [];
+        const qualified = ['Belgien', 'Italien', 'Niederlande', 'Wales'];
 
         function dragStart(ev) {
             ev.dataTransfer.setData('text/plain', ev.target.id);
@@ -38,63 +51,70 @@
     <img src="img/logo.png" width="136" height="160">
     <h1>Achtelfinale</h1>
     <p>Wer kommt ins Achtelfinale?</p>
-    <div id="drop" class="drop-zone" ondrop="drop(event)" ondragover="dragOver(event)"></div>
+    <div id="drop" class="drop-zone" ondrop="drop(event)" ondragover="dragOver(event)">
+        <img id="Belgien" src="img/BEL.png" width="70" height="70">
+        <img id="Italien" src="img/ITA.png" width="70" height="70">
+        <img id="Niederlande" src="img/NED.png" width="70" height="70">
+        <img id="Wales" src="img/WAL.png" width="70" height="70">
+    </div>
 
     <img id="Schweiz" src="img//SUI.png"
-         draggable="true" ondragstart="dragStart(event)" width="70" height="70" />
+         draggable="true" ondragstart="dragStart(event)" width="70" height="70">
 
     <img id="Russland" src="img//RUS.png"
-         draggable="true" ondragstart="dragStart(event)" width="70" height="70" />
+         draggable="true" ondragstart="dragStart(event)" width="70" height="70">
 
     <img id="Dänemark" src="img//DEN.png"
-         draggable="true" ondragstart="dragStart(event)" width="70" height="70" />
+         draggable="true" ondragstart="dragStart(event)" width="70" height="70">
 
     <img id="Finnland" src="img//FIN.png"
-         draggable="true" ondragstart="dragStart(event)" width="70" height="70" />
+         draggable="true" ondragstart="dragStart(event)" width="70" height="70">
 
     <img id="Nordmazedonien" src="img//MKD.png"
-         draggable="true" ondragstart="dragStart(event)" width="70" height="70" />
+         draggable="true" ondragstart="dragStart(event)" width="70" height="70">
 
     <img id="Ukraine" src="img//UKR.png"
-         draggable="true" ondragstart="dragStart(event)" width="70" height="70" />
+         draggable="true" ondragstart="dragStart(event)" width="70" height="70">
 
     <img id="Österreich" src="img//AUT.png"
-         draggable="true" ondragstart="dragStart(event)" width="70" height="70" />
+         draggable="true" ondragstart="dragStart(event)" width="70" height="70">
 
     <img id="Kroatien" src="img//CRO.png"
-         draggable="true" ondragstart="dragStart(event)" width="70" height="70" />
+         draggable="true" ondragstart="dragStart(event)" width="70" height="70">
 
     <img id="Schottland" src="img//SCO.png"
-         draggable="true" ondragstart="dragStart(event)" width="70" height="70" />
+         draggable="true" ondragstart="dragStart(event)" width="70" height="70">
 
     <img id="Tschechien" src="img//CZE.png"
-         draggable="true" ondragstart="dragStart(event)" width="70" height="70" />
+         draggable="true" ondragstart="dragStart(event)" width="70" height="70">
 
     <img id="England" src="img//ENG.png"
-         draggable="true" ondragstart="dragStart(event)" width="70" height="70" />
+         draggable="true" ondragstart="dragStart(event)" width="70" height="70">
 
     <img id="Slowakei" src="img//SVK.png"
-         draggable="true" ondragstart="dragStart(event)" width="70" height="70" />
+         draggable="true" ondragstart="dragStart(event)" width="70" height="70">
 
     <img id="Spanien" src="img//ESP.png"
-         draggable="true" ondragstart="dragStart(event)" width="70" height="70" />
+         draggable="true" ondragstart="dragStart(event)" width="70" height="70">
 
     <img id="Schweden" src="img//SWE.png"
-         draggable="true" ondragstart="dragStart(event)" width="70" height="70" />
+         draggable="true" ondragstart="dragStart(event)" width="70" height="70">
 
     <img id="Polen" src="img//POL.png"
-         draggable="true" ondragstart="dragStart(event)" width="70" height="70" />
+         draggable="true" ondragstart="dragStart(event)" width="70" height="70">
 
     <img id="Portugal" src="img//POR.png"
-         draggable="true" ondragstart="dragStart(event)" width="70" height="70" />
+         draggable="true" ondragstart="dragStart(event)" width="70" height="70">
 
     <img id="Frankreich" src="img//FRA.png"
-         draggable="true" ondragstart="dragStart(event)" width="70" height="70" />
+         draggable="true" ondragstart="dragStart(event)" width="70" height="70">
 
     <img id="Deutschland" src="img//GER.png"
-         draggable="true" ondragstart="dragStart(event)" width="70" height="70" />
+         draggable="true" ondragstart="dragStart(event)" width="70" height="70">
 
     <img id="Ungarn" src="img//HUN.png"
-         draggable="true" ondragstart="dragStart(event)" width="70" height="70" />
+         draggable="true" ondragstart="dragStart(event)" width="70" height="70">
+
+    <img id="Türkei" src="img//TUR.png" draggable="false" width="70" height="70" class="disabled">
 </body>
 </html>
