@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>BasicCube</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="flex-container">
+    <div class="flex-50">
+        <canvas id="glCanvas" width="500" height="500"></canvas>
+    </div>
+
+    <div class="flex-50">
+        <div>
+            <h2>World</h2>
+            <h3>Rotation Y</h3>
+            <input id="worldYInput" type="range" min="0" max="2" step="0.1" value="0">
+            <label></label>
+            <h3>Rotation X</h3>
+            <input id="worldXInput" type="range" min="0" max="2" step="0.1">
+            <h3>Rotation Z</h3>
+            <input id="worldZInput" type="range" min="0" max="2" step="0.1">
+            <!--div class="flex-container matrix">
+                <input>
+                <input>
+                <input disabled value="0">
+                <input>
+                <input>
+                <input>
+                <input disabled value="0">
+                <input>
+                <input disabled value="0">
+                <input disabled value="0">
+                <input disabled value="1">
+                <input disabled value="0">
+                <input disabled value="0">
+                <input disabled value="0">
+                <input disabled value="0">
+                <input disabled value="0">
+        </div-->
+        <div>
+            <h2>View</h2>
+            <h3>Position X</h3>
+            <input id="ViewPosX" type="range" min="-5" max="5" step="0.1" value="0">
+            <h3>Position Y</h3>
+            <input id="ViewPosY" type="range" min="-5" max="5" step="0.1" value="0">
+            <h3>Position Z</h3>
+            <input id="ViewPosZ" type="range" min="-10" max="0" step="0.1" value="-5">
+        </div>
+        <div>
+            <h2>Projection</h2>
+        </div>
+    </div>
+</div>
+<script type="module" src="basicCube.js"></script>
+</body>
+</html>

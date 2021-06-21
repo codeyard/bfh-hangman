@@ -1,0 +1,20 @@
+.flex-container {
+    display: flex;
+}
+
+.flex-50 {
+    flex: 50%;
+}
+
+.matrix {
+    width: 120px;
+    height: 120px;
+    flex-wrap: wrap;
+
+}
+
+.matrix input {
+    width: 20px;
+    height: 20px;
+    text-align: center;
+}
