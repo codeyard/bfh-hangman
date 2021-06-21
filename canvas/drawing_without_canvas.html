@@ -13,7 +13,6 @@
     <h1>Drawing example without CANVAS</h1>
     <p>A demo with adding multiple &lt;div&gt; elements.</p>
     <script>
-
         function linedraw(x1, y1, x2, y2, col) {
             const lineLength = Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
             const m = (y2 - y1) / (x2 - x1);
@@ -31,7 +30,6 @@
 
             document.body.appendChild(line);
         }
-
         linedraw(10, 120, 50, 200, 'red');
         linedraw(50, 200, 300, 150, 'blue');
     </script>
