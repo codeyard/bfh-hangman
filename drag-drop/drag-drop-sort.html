@@ -14,7 +14,7 @@
             display: block;
             border: 1px solid #ccc;
             text-align: center;
-            font-size: 20px;
+            font-size: 30px;
             padding: 20px 10px;
         }
     </style>
@@ -22,8 +22,7 @@
         let source;
 
         document.addEventListener('dragstart', function (ev) {
-            let target = getLI(ev.target);
-            source = target;
+            source = getLI(ev.target);
             ev.dataTransfer.setData('text/plain', null);
         });
 
@@ -60,10 +59,10 @@
         });
 
         function getLI(target) {
-            while (target.nodeName.toLowerCase() != 'li' && target.nodeName.toLowerCase() != 'body') {
+            while (target.nodeName.toLowerCase() !== 'li' && target.nodeName.toLowerCase() !== 'body') {
                 target = target.parentNode;
             }
-            if (target.nodeName.toLowerCase() == 'body') {
+            if (target.nodeName.toLowerCase() === 'body') {
                 return false;
             } else {
                 return target;
