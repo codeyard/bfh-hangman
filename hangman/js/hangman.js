@@ -188,7 +188,7 @@ export class Hangman{
     }
 
     _drawHead(frame){
-        let endAngle = Math.PI * 2 * 3 / 4;
+        let endAngle = Math.PI * 2;
 
         if(frame !== undefined){
             // animation: circle
@@ -204,7 +204,7 @@ export class Hangman{
         }
 
         this.context.beginPath();
-        this.context.arc(this.width / 3 + 5, this.height / 3 + 10, 10, - Math.PI / 2, endAngle);
+        this.context.arc(this.width / 3 + 5, this.height / 3 + 10, 10, - Math.PI / 2, endAngle - Math.PI / 2);
         this.context.stroke();
     }
 
