@@ -26,7 +26,7 @@ section > div {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-    max-width: 800px;
+    max-width: 600px;
 }
 
 .input-fields > div {
@@ -45,7 +45,7 @@ section > div {
     display: flex;
     flex-wrap: wrap;
     align-content: space-around;
-    justify-content: space-around;
+    justify-content: flex-start;
 }
 
 .letter-container {
