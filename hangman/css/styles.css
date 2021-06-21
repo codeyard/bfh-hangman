@@ -26,7 +26,7 @@ section > div {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-    max-width: 600px;
+    max-width: 800px;
 }
 
 .input-fields > div {
@@ -40,8 +40,14 @@ section > div {
     min-height: 10rem;
 }
 
-.input-fields__alphabet,
 .input-fields__solution {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: space-around;
+    justify-content: space-around;
+}
+
+.input-fields__alphabet {
     display: flex;
     flex-wrap: wrap;
     align-content: space-around;
