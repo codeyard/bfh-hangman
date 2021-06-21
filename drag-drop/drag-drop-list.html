@@ -21,9 +21,11 @@
             min-height: 280px;
         }
 
-        .drop-zone--over {
+        .drop-zone--enter {
+            border: 2px dashed black;
             background-color: #e0f3e2;
         }
+
 
         .drop-zone li {
             font-size: 20px;
@@ -87,11 +89,17 @@
         for (const dropZone of document.querySelectorAll('.drop-zone')) {
             dropZone.addEventListener('dragover', ev => {
                 ev.preventDefault();
-                dropZone.classList.add('drop-zone--over');
+                console.log("DRAGOVER")
             });
 
+            dropZone.addEventListener('dragenter', ev => {
+                console.log("DRAGENTER");
+                dropZone.classList.add('drop-zone--enter')
+
+            })
+
             dropZone.addEventListener('dragleave', () => {
-                dropZone.classList.remove('drop-zone--over');
+                dropZone.classList.remove('drop-zone--enter');
             });
 
             dropZone.addEventListener('drop', ev => {
@@ -110,7 +118,7 @@
                 targets[targetList].push(data);
                 console.log(targetList, targets[targetList]);
 
-                dropZone.classList.remove('drop-zone--over');
+                dropZone.classList.remove('drop-zone--enter');
             })
         }
     </script>
