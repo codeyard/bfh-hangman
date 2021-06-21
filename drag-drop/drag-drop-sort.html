@@ -5,58 +5,82 @@
     <title>Drag & Drop - Sort</title>
     <style>
         ul {
-            list-style: none;
             margin: 0;
             padding: 0;
         }
 
-        ul li {
+        li {
             cursor: move;
+            display: block;
             border: 1px solid #ccc;
             text-align: center;
             font-size: 20px;
-            padding: 3px;
-            margin: 5px 0;
+            padding: 20px 10px;
         }
     </style>
     <script>
         let source;
 
-        function dragStart(ev) {
-            ev.dataTransfer.effectAllowed = "move";
-            ev.dataTransfer.setData("text/plain", null); // Thanks to bqlou for their comment.
-            source = ev.target;
-        }
+        document.addEventListener('dragstart', function (ev) {
+            let target = getLI(ev.target);
+            source = target;
+            ev.dataTransfer.setData('text/plain', null);
+        });
 
-        function dragOver(ev) {
-            if (isBefore(source, ev.target))
-                ev.target.parentNode.insertBefore(source, ev.target);
-            else
-                ev.target.parentNode.insertBefore(source, ev.target.nextSibling);
-        }
-
-        function isBefore(source, target) {
-            if (target.parentNode === source.parentNode) {
-                for (let cur = source; cur; cur = cur.previousSibling) {
-                    if (cur === target) {
-                        return true;
-                    }
-                }
+        document.addEventListener('dragover', function (ev) {
+            ev.preventDefault();
+            let target = getLI(ev.target);
+            let bounding = target.getBoundingClientRect()
+            let offset = bounding.y + (bounding.height / 2);
+            if (ev.clientY - offset > 0) {
+                target.style['border-bottom'] = 'solid 4px blue';
+                target.style['border-top'] = '';
+            } else {
+                target.style['border-top'] = 'solid 4px blue';
+                target.style['border-bottom'] = '';
             }
-            return false;
+        });
+
+        document.addEventListener('dragleave', function (ev) {
+            let target = getLI(ev.target);
+            target.style['border-bottom'] = '';
+            target.style['border-top'] = '';
+        });
+
+        document.addEventListener('drop', function (ev) {
+            ev.preventDefault();
+            let target = getLI(ev.target);
+            if (target.style['border-bottom'] !== '') {
+                target.style['border-bottom'] = '';
+                target.parentNode.insertBefore(source, ev.target.nextSibling);
+            } else {
+                target.style['border-top'] = '';
+                target.parentNode.insertBefore(source, ev.target);
+            }
+        });
+
+        function getLI(target) {
+            while (target.nodeName.toLowerCase() != 'li' && target.nodeName.toLowerCase() != 'body') {
+                target = target.parentNode;
+            }
+            if (target.nodeName.toLowerCase() == 'body') {
+                return false;
+            } else {
+                return target;
+            }
         }
     </script>
 </head>
 <body>
-    <ul>
-        <li draggable="true" ondragover="dragOver(event)" ondragstart="dragStart(event)">Jerry Wilkinson</li>
-        <li draggable="true" ondragover="dragOver(event)" ondragstart="dragStart(event)">Haley Hutchinson</li>
-        <li draggable="true" ondragover="dragOver(event)" ondragstart="dragStart(event)">Gina Slater</li>
-        <li draggable="true" ondragover="dragOver(event)" ondragstart="dragStart(event)">Damian Sims</li>
-        <li draggable="true" ondragover="dragOver(event)" ondragstart="dragStart(event)">Fawn Lindsey</li>
-        <li draggable="true" ondragover="dragOver(event)" ondragstart="dragStart(event)">Scott Robbins</li>
-        <li draggable="true" ondragover="dragOver(event)" ondragstart="dragStart(event)">Grayson Kim</li>
-        <li draggable="true" ondragover="dragOver(event)" ondragstart="dragStart(event)">Winifred Neel</li>
-    </ul>
+<ul>
+    <li draggable="true">Jerry Wilkinson</li>
+    <li draggable="true">Haley Hutchinson</li>
+    <li draggable="true">Gina Slater</li>
+    <li draggable="true">Damian Sims</li>
+    <li draggable="true">Fawn Lindsey</li>
+    <li draggable="true">Scott Robbins</li>
+    <li draggable="true">Grayson Kim</li>
+    <li draggable="true">Winifred Neel</li>
+</ul>
 </body>
 </html>
