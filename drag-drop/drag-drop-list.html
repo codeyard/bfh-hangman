@@ -92,11 +92,11 @@
                 console.log("DRAGOVER")
             });
 
-            dropZone.addEventListener('dragenter', ev => {
+            dropZone.addEventListener('dragenter', () => {
                 console.log("DRAGENTER");
                 dropZone.classList.add('drop-zone--enter')
 
-            })
+            });
 
             dropZone.addEventListener('dragleave', () => {
                 dropZone.classList.remove('drop-zone--enter');

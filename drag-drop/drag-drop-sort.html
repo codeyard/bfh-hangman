@@ -29,7 +29,7 @@
         document.addEventListener('dragover', function (ev) {
             ev.preventDefault();
             let target = getLI(ev.target);
-            let bounding = target.getBoundingClientRect()
+            let bounding = target.getBoundingClientRect();
             let offset = bounding.y + (bounding.height / 2);
             if (ev.clientY - offset > 0) {
                 target.style['border-bottom'] = 'solid 4px blue';
